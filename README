@@ -9,4 +9,31 @@ This project uses the following HTTP verbs:
 - HEAD: To retrieve the headers for a resource without the body.
 - TRACE: To perform a message loop-back test along the path to the target resource.
 - CONNECT: To establish a tunnel to the server identified by the target resource.
-These verbs are essential for RESTful API design and help in defining the actions that can be performed on the resources.   
+These verbs are essential for RESTful API design and help in defining the actions that can be performed on the resources.  
+
+## Start of in creation of Flask and React 
+To start a project with Flask as the backend and React as the frontend, follow these steps  
+1. Set up the Flask Backend:
+   - Create a new directory for your project and navigate into it.
+   - Create a virtual environment:
+     ```bash
+     python -m venv venv
+     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+     ```
+   - Install Flask:
+     ```bash
+     pip install Flask
+     ```
+   - Create a basic Flask app (app.py):
+     ```python
+     from flask import Flask, jsonify
+
+     app = Flask(__name__)
+
+     @app.route('/api/data', methods=['GET'])
+     def get_data():
+         return jsonify({"message": "Hello from Flask!"})
+
+     if __name__ == '__main__':
+         app.run(debug=True)
+     ```
