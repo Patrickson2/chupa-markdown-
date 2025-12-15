@@ -1,0 +1,12 @@
+## The HTTP VERBS USED 
+This project uses the following HTTP verbs:
+- GET: To retrieve data from the server.
+- POST: To send new data to the server.
+- PUT: To update existing data on the server.
+- DELETE: To remove data from the server.
+- PATCH: To make partial updates to existing data on the server.
+- OPTIONS: To describe the communication options for the target resource.
+- HEAD: To retrieve the headers for a resource without the body.
+- TRACE: To perform a message loop-back test along the path to the target resource.
+- CONNECT: To establish a tunnel to the server identified by the target resource.
+These verbs are essential for RESTful API design and help in defining the actions that can be performed on the resources.   
