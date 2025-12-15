@@ -22,7 +22,7 @@ To start a project with Flask as the backend and React as the frontend, follow t
      ```
    - Install Flask:
      ```bash
-     pip install Flask
+     pipenv install Flask
      ```
    - Create a basic Flask app (app.py):
      ```python
