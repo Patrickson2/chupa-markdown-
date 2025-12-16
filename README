@@ -16,7 +16,7 @@ This project uses the following HTTP verbs:
 - CONNECT: To establish a tunnel to the server identified by the target resource.
 These verbs are essential for RESTful API design and help in defining the actions that can be performed on the resources.  
 
-## Start of in creation of Flask and React 
+## Start of in creation of Flask application on the web 
 To start a project with Flask as the backend and React as the frontend, follow these steps  
 1. Set up the Flask Backend:
    - Create a new directory for your project and navigate into it.
@@ -30,15 +30,13 @@ To start a project with Flask as the backend and React as the frontend, follow t
      pipenv install Flask
      ```
    - Create a basic Flask app (app.py):
-     ```python
-     from flask import Flask, jsonify
+     ``` 
+     check on the flask.py file for more description
+        ```
+    - Run the Flask app:
+        ```bash
+        flask run
+        ```
 
-     app = Flask(__name__)
+    
 
-     @app.route('/api/data', methods=['GET'])
-     def get_data():
-         return jsonify({"message": "Hello from Flask!"})
-
-     if __name__ == '__main__':
-         app.run(debug=True)
-     ```
