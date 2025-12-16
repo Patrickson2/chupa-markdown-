@@ -1,4 +1,4 @@
-## FLASK
+# FLASK
 What is Flask:
 - Flask is a lightweight WSGI(Web Server Gateway Interface) web application framework in Python. It is designed with simplicity and flexibility in mind, making it  easy to get started with web development. Flask provides the essential tools and features needed to build web applications, such as routing, request handling, and templating, while allowing developers to choose additional libraries and tools as needed.
 
