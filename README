@@ -37,7 +37,7 @@ To start a project with Flask as the backend and React as the frontend, follow t
         ```bash
         flask run
         ```
-## Making of Application and Request Contexts
+### Making of Application and Request Contexts
 In Flask, the application context and request context are two important concepts that help manage the state of the application and handle incoming requests.
 1. Application Context:
     - The application context is used to store information that is global to the application. It allows you to access certain objects, such as the current application instance and configuration settings, without having to pass them around
