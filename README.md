@@ -55,5 +55,49 @@ Both contexts are automatically managed by Flask during the handling of requests
 ## FLASK-SQLALCHEMY
 Flask-SQLAlchemy is an extension for Flask that adds support for SQLAlchemy, which is
 a popular SQL toolkit and Object-Relational Mapping (ORM) library for Python. Flask-SQLAlchemy simplifies the integration of SQLAlchemy with Flask applications, making it easier to work with databases.
+
+### Features of Flask-SQLAlchemy:
+1. Simplified Configuration: Flask-SQLAlchemy provides a simple way to configure the database connection
+    using Flask's configuration system.
+2. ORM Support: It allows you to define database models as Python classes, making it easier to work with
+    database records as objects.
+3. Querying: Flask-SQLAlchemy provides a high-level API for querying the database using
+    SQLAlchemy's powerful query capabilities.
+4. Migrations: It can be used in conjunction with Flask-Migrate to handle database migrations
+5. Integration with Flask: Flask-SQLAlchemy seamlessly integrates with Flask's application context,
+    making it easy to use within Flask routes and views.
+
+### Basic Usage:
+1. Install Flask-SQLAlchemy:
+   ```bash
+   pip install Flask-SQLAlchemy
+   ```
+2. Set up Flask-SQLAlchemy in your Flask app:
+    ```python
+    from flask import Flask
+    from flask_sqlalchemy import SQLAlchemy
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
+    db = SQLAlchemy(app)
+    ```
+3. Define a database model:
+    ```python
+    class User(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        username = db.Column(db.String(80), unique=True, nullable=False)
+        email = db.Column(db.String(120), unique=True, nullable=False)
+    ```
+4. Create the database tables:
+    ```python
+    with app.app_context():
+        db.create_all()
+    ```
+5. Perform database operations:
+    ```python
+    # Create a new user
+    new_user = User(username='john',
+
+- For more clarity and simple code defination check on chupasql.py
+
     
 
