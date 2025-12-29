@@ -23,7 +23,7 @@ To start a project with Flask as the backend and React as the frontend, follow t
    - Create a virtual environment:
      ```bash
      pipenv install #for creation of (pipfiles dependencies in python)
-     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+     pipenv shell #enter virtual environment 
      ```
    - Install Flask:
      ```bash
