@@ -33,9 +33,14 @@ To start a project with Flask as the backend and React as the frontend, follow t
      ``` 
      check on the flask.py file for more description
         ```
-    - Run the Flask app:
+    - Running the Flask app has two options:
         ```bash
-        flask run
+        1)The process:
+         - export FLASK_APP=Flask.py
+         -export FLASK_RUN_PORT=5555 (specify on which port like ie.9000)
+         -flask run
+        2)Or directly run the app.py file:
+            -python3 app.py (but first write this code(app.run(port=5555,debug=True)) on the bottom line of the (if__name))
         ```
 ### Making of Application and Request Contexts
 In Flask, the application context and request context are two important concepts that help manage the state of the application and handle incoming requests.
