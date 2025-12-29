@@ -14,7 +14,7 @@ def index(): #showcases that i am entering the home page
 
 @app.route('/about') #this is the routing point for the application 
 def about():
-    return 'Hello, World!'
+    return '<h1>Hello, World!</h1>'
 
 if __name__ == '__main__':
     app.run(debug=True)
