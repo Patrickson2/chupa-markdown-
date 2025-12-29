@@ -1,6 +1,7 @@
 # i am creating my first Flask application and also showcasing on the routing 
 from flask import Flask # i am importing the flask class
 
+#create an instance of a class
 app = Flask(__name__) #this is the constructor of the flask class
 
 # Routing - is the association of URLs and the code that should execute when a request comes in for that URL.
