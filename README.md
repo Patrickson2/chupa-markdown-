@@ -42,6 +42,29 @@ To start a project with Flask as the backend and React as the frontend, follow t
         2)Or directly run the app.py file:
             -python3 app.py (but first write this code(app.run(port=5555,debug=True)) on the bottom line of the (if__name))
         ```
+
+### The requests hooks
+Flask provides several request hooks that allow you to execute code at specific points during the request lifecycle. The most commonly used request hooks are:
+1. `before_request`: This hook is executed before each request. It is often used for
+    tasks such as authentication, logging, or setting up resources needed for the request.
+    ```python
+    @app.before_request
+    def before_request_func():
+         print("This function runs before each request.")
+    ```
+2. `after_request`: This hook is executed after each request, but before the response is sent to the client. It is commonly used for modifying the response or adding headers.
+    ```python
+    @app.after_request
+    def after_request_func(response):
+            print("This function runs after each request.")
+            return response
+        ```
+3. `teardown_request`: This hook is executed after the response has been sent to the client. It is typically used for cleaning up resources, such as closing database connections.
+    ```python
+    @app.teardown_request
+    def teardown_request_func(exception=None):
+            print("This function runs after the request has been completed.")
+    ```        
 ### Making of Application and Request Contexts
 In Flask, the application context and request context are two important concepts that help manage the state of the application and handle incoming requests.
 1. Application Context:
