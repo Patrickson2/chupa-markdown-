@@ -96,36 +96,13 @@ a popular SQL toolkit and Object-Relational Mapping (ORM) library for Python. Fl
     making it easy to use within Flask routes and views.
 
 ### Basic Usage:
-1. Install Flask-SQLAlchemy:
+ Install Flask-SQLAlchemy:
    ```bash
-   pip install Flask-SQLAlchemy
+   pipenv install Flask-SQLAlchemy
+         and then
+   pipenv install Flask-migrate (which is for mapping the models to database tables) 
    ```
-2. Set up Flask-SQLAlchemy in your Flask app:
-    ```python
-    from flask import Flask
-    from flask_sqlalchemy import SQLAlchemy
-    app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
-    db = SQLAlchemy(app)
-    ```
-3. Define a database model:
-    ```python
-    class User(db.Model):
-        id = db.Column(db.Integer, primary_key=True)
-        username = db.Column(db.String(80), unique=True, nullable=False)
-        email = db.Column(db.String(120), unique=True, nullable=False)
-    ```
-4. Create the database tables:
-    ```python
-    with app.app_context():
-        db.create_all()
-    ```
-5. Perform database operations:
-    ```python
-    # Create a new user
-    new_user = User(username='john',
-
-- For more clarity and simple code defination check on chupasql.py
+- For more clarity and simple code defination check on app.py
 
     
 
