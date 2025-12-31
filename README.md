@@ -124,7 +124,41 @@ a popular SQL toolkit and Object-Relational Mapping (ORM) library for Python. Fl
     >>> db.session.add(post1)  # you then add Post to the database
     >>> db.session.commit()    # then commit changes so that they may appear to the database itself
     ```
-
+6. To query the database:
+    ```python
+    >>> users = User.query.all()  # Get all users
+    ```
+7. To filter the database:
+    ```python
+    >>> user = User.query.filter_by(username='
+    example').first()  # Get user with username 'example'
+    ```
+8. To filter_by() in the datavbase:
+    ```python
+    >>> posts = Post.query.filter(Post.title.like('%Flask%')).all()  # Get posts with 'Flask' in the title
+    ```
+9. To order_by() in the database:
+    ```python
+    >>> users = User.query.order_by(User.username.desc()).all()  # Get users ordered by username in descending order
+    ```
+10. To update records in the database:
+    ```python
+    >>> user = User.query.get(1)  # Get user with ID 1
+    >>> user
+    >>> user
+    >>> db.session.commit()  # Commit the changes
+    ```
+11. To delete records from the database:
+    ```python
+    >>> user = User.query.get(1)  # Get user with ID 1
+    >>> db.session.delete(user)  # Delete the user
+    >>> db.session.commit()  # Commit the changes
+    ```
+12. To close the session:
+    ```python
+    >>> db.session.close()  # Close the session
+    ```    
+ - For more infor on the Database check on the instance folder containing the school.db
     
 
 
