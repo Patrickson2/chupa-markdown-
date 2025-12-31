@@ -102,7 +102,25 @@ a popular SQL toolkit and Object-Relational Mapping (ORM) library for Python. Fl
          and then
    pipenv install Flask-migrate (which is for mapping the models to database tables) 
    ```
-- For more clarity and simple code defination check on app.py
+- Set up Flask-SQLAlchemy in your Flask app:
+   ```python
+   ```
+- After set up the database while running this in the terminal:
+    ```bash
+    flask db init # to get the migration file and this is done only once.
+    flask db migrate -m "Initial migration." # to get the access to the database with its schema installed
+    flask db upgrade head # so when creating a class of certain data this will be the final call for it to be added to the database.
+    ```
+- Then enter the flask shell:
+    ```bash
+    flask shell
+    >>> from your_app import User, Post, db
+    >>> user1 #here you are creating the first user in database
+    >>> post1 # creation of the first post
+    >>> db.session.add(user1)  # you then add user to the database
+    >>> db.session.add(post1)  # you then add Post to the database
+    >>> db.session.commit()    # then commit changes so that they may appear to the database itself
+    ```
 
     
 
