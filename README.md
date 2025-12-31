@@ -96,22 +96,25 @@ a popular SQL toolkit and Object-Relational Mapping (ORM) library for Python. Fl
     making it easy to use within Flask routes and views.
 
 ### Basic Usage:
- Install Flask-SQLAlchemy:
+1. Install Flask-SQLAlchemy:
    ```bash
    pipenv install Flask-SQLAlchemy
          and then
    pipenv install Flask-migrate (which is for mapping the models to database tables) 
    ```
-- Set up Flask-SQLAlchemy in your Flask app:
-   ```python
-   ```
-- After set up the database while running this in the terminal:
+2. Set up Flask-SQLAlchemy in your Flask app:
+    - For more infor check on app.py
+3. Define your database models:
+    - For more info check on models.py
+- Create and manage the database:
+
+4. After set up the database while running this in the terminal:
     ```bash
     flask db init # to get the migration file and this is done only once.
     flask db migrate -m "Initial migration." # to get the access to the database with its schema installed
     flask db upgrade head # so when creating a class of certain data this will be the final call for it to be added to the database.
     ```
-- Then enter the flask shell:
+5. Then enter the flask shell:
     ```bash
     flask shell
     >>> from your_app import User, Post, db
