@@ -231,4 +231,40 @@ db.session.commit()
 
 This will create 10 random users with fake usernames, email addresses, and addresses, and add them to the database.
 ```
+### How to Return a JSON(Javascript Object Notation) Response
+- JSON is a is a data interchange format often used for transmitting data between a client and a server.JSON data is stored in a Python application as a String, but structured in a way that looks very similar to a JavaScript object.
+
+- To return a JSON response from a Flask route, you can use the `jsonify` function provided by Flask. Here's an example of how to do this:
+
+```python
+from flask import Flask, jsonify
+app = Flask(__name__)
+@app.route('/api/data', methods=['GET'])
+def get_data():
+    data = {
+        'name': 'John Doe',
+        'age': 30,
+        'city': 'New York'
+    }
+    return jsonify(data)
+if __name__ == '__main__':
+    app.run(port=5555, debug=True)
+```
+- or the `make_response`:
+
+```python
+from flask import Flask, make_response, json
+app = Flask(__name__)
+@app.route('/api/data', methods=['GET'])
+def get_data():
+    data = {
+        'name': 'John Doe',
+        'age': 30,
+        'city': 'New York'
+    }
+    response = make_response(json.dumps(data), 200)
+    response.headers['Content-Type'] = 'application/json'
+    return response
+if __name__ == '__main__':
+    app.run(port=5555, debug=True)
 
