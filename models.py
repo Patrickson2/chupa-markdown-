@@ -31,6 +31,10 @@ class Post(db.Model): # this indicates the database to be named as posts
     # each post belongs to one user
     user = db.relationship('User', back_populates='posts')
 
+    def __repr__(self):
+        return f'<Post {self.id}, {self.title}, {self.description}, {self.user_id}>'
+
+
 
 
 
