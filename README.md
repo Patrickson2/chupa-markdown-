@@ -267,4 +267,58 @@ def get_data():
     return response
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
+```
+### The SQLAlchemy Relationships and how they work.
+- There is the Primary key in the data base which identifies a row in Datebase Table and the Foreign key which is the primary key to another table.
+- In SQLAlchemy, relationships are defined using the `relationship()` function in conjunction with foreign keys. Relationships allow you to navigate between related objects in your database models.
+Here's an example of how to define relationships in SQLAlchemy:
+
+```python
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
+class Author(db.Model):
+    __tablename__ = 'authors'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    books = db.relationship('Book', back_populates='author')
+class Book(db.Model):
+    __tablename__ = 'books'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    author_id = db.Column(db.Integer, db.ForeignKey('authors.id'))
+    author = db.relationship('Author', back_populates='books')
+```
+- The example above looks just the same as the one in models.py 
+
+- In this example, we have two models: `Author` and `Book`. The `Author` model has a one-to-many relationship with the `Book` model, meaning that one author can have multiple books.
+When you define relationships in SQLAlchemy, you can specify how the related objects should be loaded. The most common loading strategies are: 
+1. Lazy Loading: This is the default loading strategy. Related objects are loaded only when they are accessed for the first time.
+2. Eager Loading: Related objects are loaded immediately when the parent object is loaded. This
+can be done using the `joined` or `subquery` loading strategies.
+3. Dynamic Loading: This strategy returns a query object that can be further filtered or modified before
+loading the related objects.
+
+### Example of Using Relationships:
+```python
+# Creating an author and their books
+author = Author(name='J.K. Rowling')
+book1 = Book(title='Harry Potter and the Sorcerer\'s Stone', author=
+author)
+book2 = Book(title='Harry Potter and the Chamber of Secrets', author=author)
+db.session.add(author)
+db.session.add(book1)
+db.session.add(book2)
+db.session.commit()
+# Querying an author and their books
+author = Author.query.filter_by(name='J.K. Rowling').first()
+for book in author.books:
+    print(book.title)
+```
+- In this example, we create an author and two books associated with that author. We then
+query the author and print the titles of their books using the relationship defined in the models.
+### Conclusion
+- Relationships in SQLAlchemy provide a powerful way to navigate between related objects in your database models.
+- By defining relationships using the `relationship()` function and foreign keys, you can easily access related data and perform complex queries involving multiple tables.
+
+
 
