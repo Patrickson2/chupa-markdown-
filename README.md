@@ -319,6 +319,47 @@ query the author and print the titles of their books using the relationship defi
 ### Conclusion
 - Relationships in SQLAlchemy provide a powerful way to navigate between related objects in your database models.
 - By defining relationships using the `relationship()` function and foreign keys, you can easily access related data and perform complex queries involving multiple tables.
-
+## FLASK-CORS
+Flask-CORS is an extension for Flask that enables Cross-Origin Resource Sharing (CORS) support in your Flask applications. CORS is a security feature implemented by web browsers to restrict web pages from making requests to a different domain than the one that served the web page. This is known as the same-origin policy.
+### Why Use Flask-CORS:
+1. Cross-Origin Requests: If your Flask backend serves an API that is accessed by a frontend
+application hosted on a different domain, you need to enable CORS to allow those requests.
+2. Security: CORS helps protect your application from certain types of attacks, such as Cross
+Site Request Forgery (CSRF).
+### Installing Flask-CORS:
+To install Flask-CORS, use the following command:
+```bash
+pipenv install Flask-CORS
+```
+### Basic Usage:
+To use Flask-CORS in your Flask application, you need to import the `CORS`
+class and initialize it with your Flask app. Here's an example:
+```python
+from flask import Flask
+from flask_cors import CORS
+app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
+@app.route('/api/data', methods=['GET'])
+def get_data():
+    data = {
+        'name': 'John Doe',
+        'age': 30,
+        'city': 'New York'
+    }
+    return jsonify(data)
+if __name__ == '__main__':
+    app.run(port=5555, debug=True)
+```
+### Configuring CORS:
+You can configure CORS to allow specific origins, methods, and headers. Here's an example of
+how to do this:
+```python
+CORS(app, resources={r"/api/*": {"origins": "http://example
+.com"}})  # Allow only requests from example.com to /api/ routes
+```
+### Conclusion:
+Flask-CORS is a useful extension for enabling CORS support in your Flask applications. By
+configuring CORS properly, you can ensure that your API can be accessed securely from different
+domains while protecting your application from potential security risks.
 
 
