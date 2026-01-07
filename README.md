@@ -334,10 +334,33 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     students = db.relationship('Student', secondary=association_table, back_populates='courses')
+# after all this you migrate so to add data.
+# then create an associate table and migrate then upgarde to add it to the database.
+
+# The associate table code that is used to store many to many relations bten student and courses
+students_courses = db.Table('students_courses', #this is the associate table 
+    db.Column('student_id', db.Integer, db.ForeignKey('students.id'), primary_key=True),
+    db.Column('course_id', db.Integer, db.ForeignKey('courses.id'), primary_key=True))
+
+ #Then enter the flask shell:
+ from models import * # the (*) symbolizes many like everything 
+    student1 = Student(name='Alice')
+    student2 = Student(name='John')
+    course1 = Course(title='Cyber sec')
+    course2 = Course(title='Data Science')
+    student1.courses.append(course1)  # Enroll Alice in Cyber sec
+    student1.courses.append(course2)  # Enroll Alice in Data Science
+    student2.courses.append(course1)  # Enroll John in Cyber sec
+    # you can also do vice verser of all this by:
+    course1.students.append(student1)  # Enroll Alice in Cyber sec
+    db.session.add_all([student1, sudent2, course1, course2])
+    db.session.commit()
 ```
 - In this example, we have two models: `Student` and `Course`, with a
 many-to-many relationship between them. The `association_table` is used to link students and courses.
- 
+- For more infor check on the models.py.
+
+
 ### Conclusion
 - Relationships in SQLAlchemy provide a powerful way to navigate between related objects in your database models.
 - By defining relationships using the `relationship()` function and foreign keys, you can easily access related data and perform complex queries involving multiple tables.
