@@ -2,6 +2,10 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy() #this is a flask SQL extention just like the creation of an instance
 
+students_courses = db.Table('students_courses', #this is the associate table 
+    db.Column('student_id', db.Integer, db.ForeignKey('students.id'), primary_key=True),
+    db.Column('course_id', db.Integer, db.ForeignKey('courses.id'), primary_key=True))
+
 # now i want to define a model class => which will be inherittting from db.model
 
 class User(db.Model):# this indicates the database to be named as users
@@ -34,7 +38,20 @@ class Post(db.Model): # this indicates the database to be named as posts
     def __repr__(self):
         return f'<Post {self.id}, {self.title}, {self.description}, {self.user_id}>'
 
+# Now i want to add two models that will relate to the many-many relationships 
+class Student(db.Model):
+    __tablename__ = 'students'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
 
+    # many to many relationship with course
+    courses = db.relationship('Course', secondary=students_courses, back_populates='students')
 
-
+class Course(db.Model):
+    __tablename__ = 'courses'
+    id = db.Column(db.Integer, primary_key=True)
+    course_name = db.Column(db.String, nullable=False)
+    
+    # many to many relationship with student
+    students = db.relationship('Student', secondary=students_courses, back_populates='courses')
 
