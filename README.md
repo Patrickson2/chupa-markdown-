@@ -316,6 +316,28 @@ for book in author.books:
 ```
 - In this example, we create an author and two books associated with that author. We then
 query the author and print the titles of their books using the relationship defined in the models.
+
+### Many to many relationships:
+- Many-to-many relationships are established using an association table that contains foreign keys referencing the primary keys of the related tables.
+```python
+association_table = db.Table('association',
+    db.Column('student_id', db.Integer, db.ForeignKey('students.id')),
+    db.Column('course_id', db.Integer, db.ForeignKey('courses.id'))
+)
+class Student(db.Model):
+    __tablename__ = 'students'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    courses = db.relationship('Course', secondary=association_table, back_populates='students')
+class Course(db.Model):
+    __tablename__ = 'courses'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    students = db.relationship('Student', secondary=association_table, back_populates='courses')
+```
+- In this example, we have two models: `Student` and `Course`, with a
+many-to-many relationship between them. The `association_table` is used to link students and courses.
+ 
 ### Conclusion
 - Relationships in SQLAlchemy provide a powerful way to navigate between related objects in your database models.
 - By defining relationships using the `relationship()` function and foreign keys, you can easily access related data and perform complex queries involving multiple tables.
