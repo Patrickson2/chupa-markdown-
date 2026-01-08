@@ -360,51 +360,97 @@ students_courses = db.Table('students_courses', #this is the associate table
 many-to-many relationship between them. The `association_table` is used to link students and courses.
 - For more infor check on the models.py.
 
+### SqlAlchemy Serialization
+- We will see how we can serialize Data to appear more appealing to other programmers 
+- So Serialization is the process of converting an object into a format that can be easily stored or transmitted, such as JSON. In SQLAlchemy, you can implement serialization methods in your models to convert them into dictionaries or JSON objects.
 
+### installation of Sqlalchemy serializer:
+- To install the SQLAlchemy Serializer, you can use pipenv:
+```bash
+pipenv install sqlalchemy-serializer
+```
+### Methods of Serialization:
+- We will be importing these types of methods:
+     1. from sqlalchemy_serializer import SerializerMixin
+        - which also has some inbuilt methods:
+           1. serialize_rule which means (the type of data to exclude)
+           2. serialize_only which means( the type of data to include)
+           3. to_dict which takes the rule && only arguments.
+-  2. Or we can manually create a method called to_dict() in each model to convert the model instance into a dictionary representation.
+-  3. Or we can use Marshmallow library for serialization and deserialization of SQL
+Alchemy models.
+-  4. Or we can use Flask-RESTful which has built-in support for serializing SQLAlchemy models.
+### Example of Manual Serialization:
+- There are several data serialization formats available, but the most commonly used ones are:
+-  1. JSON
+-  2. XML
+-  3. YAML
+- These 3 are well understood by both humans and machines.
+Here's an example of how to implement serialization in SQLAlchemy models:
+
+```python
+class Author(db.Model):
+    __tablename__ = 'authors'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    books = db.relationship('Book', back_populates='author')
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'books': [book.to_dict() for book in self.books]
+        }
+class Book(db.Model):
+    __tablename__ = 'books'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    author_id = db.Column(db.Integer, db.ForeignKey('authors.id'))
+    author = db.relationship('Author', back_populates='books')
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'author_id': self.author_id
+        }
+```
+- In this example, we have added a `to_dict()` method to both the `Author
+` and `Book` models. The `to_dict()` method converts the model instance into a dictionary representation, including related objects.
+
+### Example of a Serialization_rule code
+```python
+from sqlalchemy_serializer import SerializerMixin
+class User(db.Model, SerializerMixin):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+    # the main call for the (_rule)
+    serialize_rules = ('-password',)  # Exclude password from serialization
+```
+
+### To run the serialization in terminal
+```bash
+flask shell
+>>> from models import * # the * is for importing everything from the database
+>>> [user.to_dict() for user in User.query.all()] # to query everything so that to see if everything works
+```
+
+- In the example above, we query the User and convert the User instance into a dictionary using the
+`to_dict()` method. The resulting dictionary can then be easily converted to JSON or used in API responses.
+
+
+### To have the data on the browser you'll:
+```python
+from flask import * # you first import everything in the app.py 
+@app.route('/users') # then this is the routing code
+def get_all_users():
+    return [user.to_dict() for user in User.query.all()] 
+```
+- In this example, we define a Flask route that retrieves an author by ID and returns the
+serialized author data as a JSON response.
+ 
 ### Conclusion
 - Relationships in SQLAlchemy provide a powerful way to navigate between related objects in your database models.
 - By defining relationships using the `relationship()` function and foreign keys, you can easily access related data and perform complex queries involving multiple tables.
-## FLASK-CORS
-Flask-CORS is an extension for Flask that enables Cross-Origin Resource Sharing (CORS) support in your Flask applications. CORS is a security feature implemented by web browsers to restrict web pages from making requests to a different domain than the one that served the web page. This is known as the same-origin policy.
-### Why Use Flask-CORS:
-1. Cross-Origin Requests: If your Flask backend serves an API that is accessed by a frontend
-application hosted on a different domain, you need to enable CORS to allow those requests.
-2. Security: CORS helps protect your application from certain types of attacks, such as Cross
-Site Request Forgery (CSRF).
-### Installing Flask-CORS:
-To install Flask-CORS, use the following command:
-```bash
-pipenv install Flask-CORS
-```
-### Basic Usage:
-To use Flask-CORS in your Flask application, you need to import the `CORS`
-class and initialize it with your Flask app. Here's an example:
-```python
-from flask import Flask
-from flask_cors import CORS
-app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
-@app.route('/api/data', methods=['GET'])
-def get_data():
-    data = {
-        'name': 'John Doe',
-        'age': 30,
-        'city': 'New York'
-    }
-    return jsonify(data)
-if __name__ == '__main__':
-    app.run(port=5555, debug=True)
-```
-### Configuring CORS:
-You can configure CORS to allow specific origins, methods, and headers. Here's an example of
-how to do this:
-```python
-CORS(app, resources={r"/api/*": {"origins": "http://example
-.com"}})  # Allow only requests from example.com to /api/ routes
-```
-### Conclusion:
-Flask-CORS is a useful extension for enabling CORS support in your Flask applications. By
-configuring CORS properly, you can ensure that your API can be accessed securely from different
-domains while protecting your application from potential security risks.
-
 
