@@ -1,7 +1,10 @@
 # i am creating my first Flask application and also showcasing on the routing 
 from flask import Flask # i am importing the flask class
 from flask_migrate import Migrate #this is the migration instance
-from models import db #this is the database instance
+# from models import db #this is the database instance
+from models import * #i want to import everything
+
+
 #create an instance of a class
 app = Flask(__name__) #this is the constructor of the flask class
 
@@ -24,6 +27,10 @@ def index(): #showcases that i am entering the home page
 @app.route('/about') #this is the routing point for the application 
 def about():
     return '<h1>Hello, World!</h1>'
+
+@app.route('/users')
+def get_all_users():
+    return [user.to_dict() for user in User.query.all()]    
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True) #easy way for running this Flask app
