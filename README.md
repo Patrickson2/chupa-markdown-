@@ -454,3 +454,5 @@ serialized author data as a JSON response.
 - Relationships in SQLAlchemy provide a powerful way to navigate between related objects in your database models.
 - By defining relationships using the `relationship()` function and foreign keys, you can easily access related data and perform complex queries involving multiple tables.
 
+### Retrieving of data from APIs
+### Achieving an API end-point
